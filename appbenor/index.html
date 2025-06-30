@@ -1,0 +1,205 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+      <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banorapp</title>
+    <!-- Favicon -->
+    <link rel="icon" href="imag/cajero-automatico.png" type="image/png">
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar() -->    <!-- Contenido del navbar -->
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <button class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <img src="imag/logo1.PNG" alt="Banorapp Logo">
+            </div>
+
+        </div>
+        <ul class="nav-menu" id="nav-menu">
+            <li><a href="#" class="nav-link active" data-section="dashboard">Inicio</a></li>
+            <li><a href="#" class="nav-link" data-section="sales-history">Historial de Ventas</a></li>
+            <li><a href="#" class="nav-link" data-section="debt-history">Historial de Deudas</a></li>
+        </ul>
+    </nav>
+
+    <!-- Dashboard Section -->     <!-- Estadísticas, formulario y tabla -->
+    <section id="dashboard" class="section active">
+        <div class="stats-container">
+            <div class="stat-box">
+                <h3>VENTAS HOY</h3>
+                <p id="today-sales">$0.00</p>
+            </div>
+            <div class="stat-box">
+                <h3>DEBE TOTAL</h3>
+                <p id="total-debt">$0.00</p>
+            </div>
+        </div>
+
+        <div class="date-display">
+            <p id="current-date">11/06/25</p>
+        </div>
+
+        <!-- Customer Registration Form -->
+        <div class="form-container">
+            <h2>Registro de Clientes</h2>
+            <form id="customer-form">
+                <div class="form-group">
+                    <label for="customer-name">Nombre del cliente:</label>
+                    <input type="text" id="customer-name" placeholder="Nombre del cliente" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Productos:</label>
+                    <div class="product-control">
+                        <span>Bebidas:</span>
+                        <div class="quantity-control">
+                            <button type="button" class="quantity-btn" data-product="drinks" data-action="decrease">-</button>
+                            <span id="drinks-quantity" class="quantity">0</span>
+                            <button type="button" class="quantity-btn" data-product="drinks" data-action="increase">+</button>
+                        </div>
+                    </div>
+                    <div class="product-control">
+                        <span>Galletas:</span>
+                        <div class="quantity-control">
+                            <button type="button" class="quantity-btn" data-product="cookies" data-action="decrease">-</button>
+                            <span id="cookies-quantity" class="quantity">0</span>
+                            <button type="button" class="quantity-btn" data-product="cookies" data-action="increase">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tipo de galleta:</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="cookie-type" value="Con Canela" checked>
+                            <span>Con Canela</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="cookie-type" value="Sin Canela">
+                            <span>Sin Canela</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Estado de pago:</label>
+                    <div class="toggle-group">
+                        <button type="button" class="toggle-btn active" data-status="paid">Pagado</button>
+                        <button type="button" class="toggle-btn" data-status="unpaid">Debe</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Registrar cliente</button>
+            </form>
+        </div>
+
+        <!-- Registered Customers Table (now part of Dashboard) -->
+        <div class="table-container">
+            <h2>Clientes Registrados</h2>
+            <div class="table-scroll">
+                <table id="customers-table">
+                    <thead>
+                        <tr>
+                            <th>NOMBRE</th>
+                            <th>BEBIDAS</th>
+                            <th>GALLETAS</th>
+                            <th>TIPO</th>
+                            <th>TOTAL</th>
+                            <th>ESTADO</th>
+                            <th>ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customers-table-body">
+                        <!-- Data will be inserted here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- Sales History Section -->
+    <section id="sales-history" class="section">
+        <!-- Content will be generated dynamically by JavaScript -->
+    </section>
+
+    <!-- Debt History Section -->
+    <section id="debt-history" class="section">
+        <!-- Content will be generated dynamically by JavaScript -->
+    </section>
+    
+  <!-- Footer -->
+    <footer class="footer">
+        <!-- contenido del footer -->
+         <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="imag/logo1.PNG" alt="Banorapp Logo" class="footer-logo-img">
+                </div>
+                <p>Sistema de gestión de ventas y control de deudas para tu negocio.</p>
+               
+            </div>
+            
+            <div class="footer-section">
+                <h3>Funciones</h3>
+                <ul class="footer-links">
+                    <li><a href="#dashboard">Historial de Ventas</a></li>
+                    <li><a href="#debt-history">Historialde Deudas</a></li>
+                    <li><a href="#">Reportes</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-envelope"></i> info@banorapp.com</p>
+                    <p><i class="fas fa-phone"></i> +52 55 1234 5678</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Ciudad de México, México</p>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Síguenos</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-divider"></div>
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Banorapp. Todos los derechos reservados.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Términos de Uso</a>
+                    <span>|</span>
+                    <a href="#">Política de Privacidad</a>
+                    <span>|</span>
+                    <a href="#">Soporte</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </footer>
+    <script src="js/script.js"></script>
+    
+</body>
+
+</html>

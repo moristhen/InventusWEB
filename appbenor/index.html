@@ -1,132 +1,61 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nelly's Flawless | Tienda de Fragancias</title>
-  <style>
-    :root{
-      --bg:#f7f7f9;--card:#fff;--text:#111827;--muted:#6b7280;--primary:#1f0a5c;--accent:#cc8b2e;--line:#e5e7eb;
-    }
-    *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
-    .container{max-width:1200px;margin:auto;padding:18px}
-    .topbar{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;background:var(--card);padding:14px;border-radius:14px}
-    .brand{font-weight:800;font-size:1.2rem} .brand span{color:var(--accent)}
-    .search{display:flex} .search input{flex:1;padding:12px 14px;border:1px solid var(--line);border-radius:10px 0 0 10px}
-    .search button{border:0;background:var(--primary);color:#fff;padding:0 16px;border-radius:0 10px 10px 0;cursor:pointer}
-    .cart-btn{position:relative;border:1px solid var(--line);padding:10px 14px;border-radius:10px;background:#fff;cursor:pointer}
-    .badge{position:absolute;right:-8px;top:-8px;background:var(--primary);color:#fff;border-radius:999px;padding:2px 7px;font-size:.75rem}
-    .hero{margin-top:14px;background:linear-gradient(120deg,#f7efe8,#fff);padding:28px;border-radius:16px}
-    h1{margin:0 0 8px;font-size:2rem}.muted{color:var(--muted)}
-    .catalog{margin-top:18px}
-    .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-    .chip{border:1px solid var(--line);background:#fff;padding:8px 10px;border-radius:999px;cursor:pointer}
-    .chip.active{background:var(--primary);color:#fff;border-color:var(--primary)}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column}
-    .card img{width:100%;height:180px;object-fit:cover;border-radius:10px;background:#f3f4f6}
-    .price{font-size:1.35rem;font-weight:800;margin:6px 0}.ship{color:#b45309;font-size:.9rem}
-    .btn{margin-top:auto;border:0;background:var(--primary);color:#fff;padding:10px;border-radius:10px;cursor:pointer}
-    .drawer{position:fixed;inset:0;display:none}.drawer.open{display:block}
-    .overlay{position:absolute;inset:0;background:rgba(17,24,39,.45)}
-    .panel{position:absolute;right:0;top:0;height:100%;width:min(420px,95vw);background:#fff;padding:16px;display:flex;flex-direction:column}
-    .cart-items{flex:1;overflow:auto;display:flex;flex-direction:column;gap:10px}
-    .item{border:1px solid var(--line);border-radius:10px;padding:10px;display:grid;grid-template-columns:1fr auto;gap:8px}
-    .qty{display:flex;align-items:center;gap:8px}.qty button{width:28px;height:28px}
-    .totals{border-top:1px solid var(--line);padding-top:12px}
-    .row{display:flex;justify-content:space-between;margin:5px 0}
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nelly's Flawless | Tienda</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--line:#e6e7ec;--txt:#141414;--muted:#616574;--pri:#1f0a5c;--gold:#c7882d}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--txt)}
+.container{max-width:1250px;margin:auto;padding:20px}.box{background:#fff;border:1px solid var(--line);border-radius:14px}
+.header{display:grid;grid-template-columns:auto auto 1fr auto auto;gap:14px;align-items:center;padding:14px 18px}
+.logo{font:700 1.7rem Georgia,serif}.logo span{color:var(--gold)}.link{font-weight:600;color:#21242f}
+.search{display:flex}.search input{width:100%;padding:12px;border:1px solid var(--line);border-right:0;border-radius:10px 0 0 10px}.search button{padding:0 16px;border:0;background:var(--pri);color:#fff;border-radius:0 10px 10px 0}
+.cart-btn{position:relative;border:1px solid var(--line);padding:10px 12px;border-radius:10px;background:#fff;cursor:pointer}.count{position:absolute;top:-8px;right:-8px;background:var(--pri);color:#fff;border-radius:999px;padding:1px 7px;font-size:.75rem}
+.hero{display:grid;grid-template-columns:1.35fr 1fr;overflow:hidden;margin-top:16px}.hero .a{padding:40px}.hero h1{font:700 4rem/0.95 Georgia,serif;margin:0}.hero h1 span{color:var(--gold)}.cta{margin-top:16px;border:0;background:var(--pri);color:#fff;padding:12px 18px;border-radius:999px;font-weight:700}.a p{max-width:430px;color:var(--muted)}
+.hero .b{background:radial-gradient(circle at 80% 10%,#3f2b0f 0,#1e150a 55%,#120b06 100%);color:#f7e8c7;padding:26px;display:flex;align-items:end}
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}.cat{padding:18px}.cat h3{margin:0}.cat p{color:var(--muted)}
+.section-title{text-align:center;font:700 2.6rem Georgia,serif;margin:28px 0 8px}.filters{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer}.chip.active{background:var(--pri);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.product{padding:12px}.thumb{height:180px;border-radius:10px;background:linear-gradient(145deg,#efe2d3,#fff)}.product h4{margin:.7rem 0 .2rem}.price{font-size:1.8rem;font-weight:800}.ship{color:#b56f18}.add{margin-top:8px;width:100%;padding:10px;border:0;border-radius:8px;background:var(--pri);color:#fff;font-weight:700}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}.f{padding:16px;text-align:center}.f b{display:block}
+.footer{margin-top:16px;padding:24px;display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:16px}.footer h5{margin:0 0 8px}.footer a{display:block;margin:3px 0;color:#333;text-decoration:none}.newsletter input{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px}.newsletter button{margin-top:8px;width:100%;padding:10px;border:0;background:var(--pri);color:#fff;border-radius:8px}
+.drawer{position:fixed;inset:0;display:none}.drawer.open{display:block}.overlay{position:absolute;inset:0;background:rgba(0,0,0,.4)}.panel{position:absolute;right:0;top:0;height:100%;width:min(420px,96vw);background:#fff;padding:14px;display:flex;flex-direction:column}
+.cart-items{flex:1;overflow:auto;display:flex;flex-direction:column;gap:8px}.item{border:1px solid var(--line);padding:9px;border-radius:10px;display:grid;grid-template-columns:1fr auto;gap:8px}.qty{display:flex;align-items:center;gap:6px}.qty button{width:26px;height:26px}
+.totals{border-top:1px solid var(--line);padding-top:10px}.row{display:flex;justify-content:space-between;margin:6px 0}
+@media (max-width:980px){.header{grid-template-columns:1fr auto auto;}.link,.search{grid-column:1/-1}.hero,.cats,.features,.footer{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-  <div class="container">
-    <header class="topbar">
-      <div class="brand">Nelly's <span>Flawless</span></div>
-      <form class="search" id="searchForm"><input id="searchInput" placeholder="Busca tu fragancia..."/><button>🔍</button></form>
-      <button class="cart-btn" id="openCart">🛒 Carrito <span class="badge" id="cartCount">0</span></button>
-    </header>
-
-    <section class="hero">
-      <h1>Esencia única</h1>
-      <p class="muted">Catálogo dinámico + carrito persistente con cálculo de impuestos en un solo archivo.</p>
-    </section>
-
-    <section class="catalog">
-      <h2>Fragancias destacadas</h2>
-      <div class="filters" id="categoryFilters"></div>
-      <div class="grid" id="productGrid"></div>
-    </section>
-  </div>
-
-  <aside class="drawer" id="cartDrawer" aria-hidden="true">
-    <div class="overlay" id="closeCart"></div>
-    <div class="panel">
-      <h3>Tu carrito</h3>
-      <div class="cart-items" id="cartItems"></div>
-      <div class="totals">
-        <div class="row"><span>Subtotal</span><strong id="subtotal">$0.00</strong></div>
-        <div class="row"><span>Impuestos (16%)</span><strong id="tax">$0.00</strong></div>
-        <div class="row"><span>Total</span><strong id="total">$0.00</strong></div>
-      </div>
-    </div>
-  </aside>
-
-  <script>
-    const TAX_RATE = 0.16;
-    const products = [
-      {id:1,name:'Dior Joy EDP 100ml',price:1935,category:'Para ella',img:'https://images.unsplash.com/photo-1595425964078-6f0cf9f2e7b1?auto=format&fit=crop&w=600&q=60'},
-      {id:2,name:'Tom Ford Oud Wood EDP 100ml',price:4350,category:'Para él',img:'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=600&q=60'},
-      {id:3,name:'Armaf Club De Nuit Intense',price:1750,category:'Para él',img:'https://images.unsplash.com/photo-1615634262417-6c5f9f6f3ca6?auto=format&fit=crop&w=600&q=60'},
-      {id:4,name:'Le Male Elixir 125ml',price:2264.73,category:'Sin género',img:'https://images.unsplash.com/photo-1588405748880-12d1d2a59d75?auto=format&fit=crop&w=600&q=60'},
-      {id:5,name:'Raheeb Eau de Parfum',price:1599,category:'Para ella',img:'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=60'},
-    ];
-
-    const state = {search:'',category:'Todas',cart:JSON.parse(localStorage.getItem('nf_cart')||'{}')};
-    const money = n => n.toLocaleString('es-MX',{style:'currency',currency:'MXN'});
-
-    const els = {
-      productGrid: document.getElementById('productGrid'),
-      categoryFilters: document.getElementById('categoryFilters'),
-      cartCount: document.getElementById('cartCount'),
-      cartItems: document.getElementById('cartItems'), subtotal: document.getElementById('subtotal'), tax: document.getElementById('tax'), total: document.getElementById('total'),
-      cartDrawer: document.getElementById('cartDrawer')
-    };
-
-    function saveCart(){ localStorage.setItem('nf_cart', JSON.stringify(state.cart)); }
-    function setQty(id, qty){ if(qty<=0) delete state.cart[id]; else state.cart[id]=qty; saveCart(); renderCart(); }
-    function addToCart(id){ setQty(id,(state.cart[id]||0)+1); }
-
-    function renderFilters(){
-      const cats=['Todas',...new Set(products.map(p=>p.category))];
-      els.categoryFilters.innerHTML=cats.map(c=>`<button class="chip ${state.category===c?'active':''}" data-cat="${c}">${c}</button>`).join('');
-      [...els.categoryFilters.children].forEach(b=>b.onclick=()=>{state.category=b.dataset.cat; renderProducts(); renderFilters();});
-    }
-
-    function renderProducts(){
-      const q=state.search.toLowerCase();
-      const filtered=products.filter(p=>(state.category==='Todas'||p.category===state.category)&&p.name.toLowerCase().includes(q));
-      els.productGrid.innerHTML=filtered.map(p=>`<article class="card"><img src="${p.img}" alt="${p.name}"/><h4>${p.name}</h4><p class="price">${money(p.price)}</p><p class="ship">🚚 Envío gratis</p><button class="btn" data-add="${p.id}">Agregar al carrito</button></article>`).join('') || '<p>No hay productos para ese filtro.</p>';
-      els.productGrid.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>addToCart(Number(b.dataset.add)));
-    }
-
-    function renderCart(){
-      const items=Object.entries(state.cart).map(([id,qty])=>({p:products.find(x=>x.id===Number(id)),qty})).filter(x=>x.p);
-      const count=items.reduce((a,b)=>a+Number(b.qty),0); els.cartCount.textContent=count;
-      if(!items.length){ els.cartItems.innerHTML='<p class="muted">Tu carrito está vacío.</p>'; }
-      else{
-        els.cartItems.innerHTML=items.map(({p,qty})=>`<div class="item"><div><strong>${p.name}</strong><div class="muted">${money(p.price)} c/u</div></div><div><div class="qty"><button data-dec="${p.id}">-</button><span>${qty}</span><button data-inc="${p.id}">+</button></div><div style="text-align:right;margin-top:6px"><button data-del="${p.id}">🗑️</button></div></div></div>`).join('');
-        els.cartItems.querySelectorAll('[data-inc]').forEach(b=>b.onclick=()=>setQty(Number(b.dataset.inc),(state.cart[b.dataset.inc]||0)+1));
-        els.cartItems.querySelectorAll('[data-dec]').forEach(b=>b.onclick=()=>setQty(Number(b.dataset.dec),(state.cart[b.dataset.dec]||0)-1));
-        els.cartItems.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>setQty(Number(b.dataset.del),0));
-      }
-      const subtotal=items.reduce((acc,{p,qty})=>acc+p.price*qty,0); const tax=subtotal*TAX_RATE; const total=subtotal+tax;
-      els.subtotal.textContent=money(subtotal); els.tax.textContent=money(tax); els.total.textContent=money(total);
-    }
-
-    document.getElementById('openCart').onclick=()=>els.cartDrawer.classList.add('open');
-    document.getElementById('closeCart').onclick=()=>els.cartDrawer.classList.remove('open');
-    document.getElementById('searchForm').onsubmit=e=>{e.preventDefault(); state.search=document.getElementById('searchInput').value.trim(); renderProducts();};
-
-    renderFilters(); renderProducts(); renderCart();
-  </script>
+<div class="container">
+  <header class="header box">
+    <div class="logo">Nelly's <span>Flawless</span></div><div class="link">Categorías ▾</div>
+    <form id="searchForm" class="search"><input id="searchInput" placeholder="Busca tu fragancia..."><button>🔍</button></form>
+    <div class="link">Regístrate</div><button class="cart-btn" id="openCart">🛒<span class="count" id="cartCount">0</span></button>
+  </header>
+  <section class="hero box"><div class="a"><small style="color:var(--gold);font-weight:700;letter-spacing:.1em">COLECCIÓN EXCLUSIVA</small><h1>Esencia <span>única</span></h1><p>Fragancias exclusivas diseñadas para dejar una huella inolvidable.</p><button class="cta">COMPRAR AHORA →</button></div><div class="b"><div><h2 style="margin:0 0 6px">RAHEEB</h2><p style="margin:0;color:#f9e9c8">Inspirada en mujer fuerte & segura</p></div></div></section>
+  <section class="cats"><article class="cat box"><h3>Para ella</h3><p>24 fragancias</p></article><article class="cat box"><h3>Para él</h3><p>18 fragancias</p></article><article class="cat box"><h3>Sin género</h3><p>12 fragancias</p></article></section>
+  <h2 class="section-title">Fragancias Destacadas</h2>
+  <div id="categoryFilters" class="filters"></div>
+  <section id="productGrid" class="grid"></section>
+  <section class="features"><div class="f box"><b>Envío gratis</b><span>En compras superiores a $999</span></div><div class="f box"><b>Compra segura</b><span>Tus datos protegidos</span></div><div class="f box"><b>Productos originales</b><span>100% garantizados</span></div><div class="f box"><b>Atención 24/7</b><span>Estamos para ayudarte</span></div></section>
+  <footer class="footer box"><div><div class="logo">Nelly's <span>Flawless</span></div><p style="color:var(--muted)">Fragancias exclusivas diseñadas para dejar una huella inolvidable.</p></div><div><h5>NAVEGACIÓN</h5><a href="#">Inicio</a><a href="#">Categorías</a><a href="#">Ofertas</a></div><div><h5>AYUDA</h5><a href="#">Contacto</a><a href="#">Preguntas frecuentes</a><a href="#">Devoluciones</a></div><div class="newsletter"><h5>NEWSLETTER</h5><input placeholder="Tu correo electrónico"><button>Suscribirme</button></div></footer>
+</div>
+<aside id="cartDrawer" class="drawer"><div id="closeCart" class="overlay"></div><div class="panel"><h3>Tu carrito</h3><div id="cartItems" class="cart-items"></div><div class="totals"><div class="row"><span>Subtotal</span><b id="subtotal">$0.00</b></div><div class="row"><span>Impuestos (16%)</span><b id="tax">$0.00</b></div><div class="row"><span>Total</span><b id="total">$0.00</b></div></div></div></aside>
+<script>
+const TAX_RATE=0.16;
+const products=[
+{id:1,name:'Dior Joy EDP 100ml',price:1935,category:'Para ella'},{id:2,name:'Tom Ford Oud Wood EDP 100ml',price:4350,category:'Para él'},{id:3,name:'Armaf Club De Nuit Intense 105ml',price:1750,category:'Para él'},{id:4,name:'Le Male Elixir 125ml',price:2264.73,category:'Sin género'},{id:5,name:'Raheeb Eau de Parfum',price:1599,category:'Para ella'},{id:6,name:'Vanilla Amber Intense',price:1390,category:'Sin género'}];
+const state={search:'',category:'Todas',cart:JSON.parse(localStorage.getItem('nf_cart')||'{}')};
+const money=n=>n.toLocaleString('es-MX',{style:'currency',currency:'MXN'});
+const els={grid:document.getElementById('productGrid'),filters:document.getElementById('categoryFilters'),count:document.getElementById('cartCount'),items:document.getElementById('cartItems'),subtotal:document.getElementById('subtotal'),tax:document.getElementById('tax'),total:document.getElementById('total'),drawer:document.getElementById('cartDrawer')};
+const save=()=>localStorage.setItem('nf_cart',JSON.stringify(state.cart));
+const setQty=(id,q)=>{if(q<=0)delete state.cart[id];else state.cart[id]=q;save();renderCart();};
+const add=id=>setQty(id,(state.cart[id]||0)+1);
+function renderFilters(){const cats=['Todas',...new Set(products.map(p=>p.category))];els.filters.innerHTML=cats.map(c=>`<button class="chip ${state.category===c?'active':''}" data-cat="${c}">${c}</button>`).join('');els.filters.querySelectorAll('button').forEach(b=>b.onclick=()=>{state.category=b.dataset.cat;renderFilters();renderProducts();});}
+function renderProducts(){const q=state.search.toLowerCase();const filtered=products.filter(p=>(state.category==='Todas'||p.category===state.category)&&p.name.toLowerCase().includes(q));els.grid.innerHTML=filtered.map(p=>`<article class="product box"><div class="thumb"></div><h4>${p.name}</h4><div class="price">${money(p.price)}</div><div class="ship">🚚 Envío gratis</div><button class="add" data-id="${p.id}">Agregar al carrito</button></article>`).join('')||'<p>No hay resultados con esos filtros.</p>';els.grid.querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>add(Number(b.dataset.id)));}
+function renderCart(){const items=Object.entries(state.cart).map(([id,qty])=>({product:products.find(p=>p.id===Number(id)),qty:Number(qty)})).filter(x=>x.product);const count=items.reduce((a,b)=>a+b.qty,0);els.count.textContent=count;if(!items.length){els.items.innerHTML='<p style="color:var(--muted)">Tu carrito está vacío.</p>';}else{els.items.innerHTML=items.map(({product,qty})=>`<div class="item"><div><b>${product.name}</b><div style="color:var(--muted)">${money(product.price)} c/u</div></div><div><div class="qty"><button data-dec="${product.id}">-</button><span>${qty}</span><button data-inc="${product.id}">+</button></div><button data-del="${product.id}" style="margin-top:6px">Eliminar</button></div></div>`).join('');els.items.querySelectorAll('[data-inc]').forEach(b=>b.onclick=()=>setQty(Number(b.dataset.inc),(state.cart[b.dataset.inc]||0)+1));els.items.querySelectorAll('[data-dec]').forEach(b=>b.onclick=()=>setQty(Number(b.dataset.dec),(state.cart[b.dataset.dec]||0)-1));els.items.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>setQty(Number(b.dataset.del),0));}
+const subtotal=items.reduce((s,{product,qty})=>s+product.price*qty,0),tax=subtotal*TAX_RATE,total=subtotal+tax;els.subtotal.textContent=money(subtotal);els.tax.textContent=money(tax);els.total.textContent=money(total);}
+document.getElementById('openCart').onclick=()=>els.drawer.classList.add('open');document.getElementById('closeCart').onclick=()=>els.drawer.classList.remove('open');document.getElementById('searchForm').onsubmit=e=>{e.preventDefault();state.search=document.getElementById('searchInput').value.trim();renderProducts();};
+renderFilters();renderProducts();renderCart();
+</script>
 </body>
 </html>

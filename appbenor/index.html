@@ -1,205 +1,132 @@
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-?>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-      <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banorapp</title>
-    <!-- Favicon -->
-    <link rel="icon" href="imag/cajero-automatico.png" type="image/png">
-    <!-- Estilos -->
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nelly's Flawless | Tienda de Fragancias</title>
+  <style>
+    :root{
+      --bg:#f7f7f9;--card:#fff;--text:#111827;--muted:#6b7280;--primary:#1f0a5c;--accent:#cc8b2e;--line:#e5e7eb;
+    }
+    *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
+    .container{max-width:1200px;margin:auto;padding:18px}
+    .topbar{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;background:var(--card);padding:14px;border-radius:14px}
+    .brand{font-weight:800;font-size:1.2rem} .brand span{color:var(--accent)}
+    .search{display:flex} .search input{flex:1;padding:12px 14px;border:1px solid var(--line);border-radius:10px 0 0 10px}
+    .search button{border:0;background:var(--primary);color:#fff;padding:0 16px;border-radius:0 10px 10px 0;cursor:pointer}
+    .cart-btn{position:relative;border:1px solid var(--line);padding:10px 14px;border-radius:10px;background:#fff;cursor:pointer}
+    .badge{position:absolute;right:-8px;top:-8px;background:var(--primary);color:#fff;border-radius:999px;padding:2px 7px;font-size:.75rem}
+    .hero{margin-top:14px;background:linear-gradient(120deg,#f7efe8,#fff);padding:28px;border-radius:16px}
+    h1{margin:0 0 8px;font-size:2rem}.muted{color:var(--muted)}
+    .catalog{margin-top:18px}
+    .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+    .chip{border:1px solid var(--line);background:#fff;padding:8px 10px;border-radius:999px;cursor:pointer}
+    .chip.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column}
+    .card img{width:100%;height:180px;object-fit:cover;border-radius:10px;background:#f3f4f6}
+    .price{font-size:1.35rem;font-weight:800;margin:6px 0}.ship{color:#b45309;font-size:.9rem}
+    .btn{margin-top:auto;border:0;background:var(--primary);color:#fff;padding:10px;border-radius:10px;cursor:pointer}
+    .drawer{position:fixed;inset:0;display:none}.drawer.open{display:block}
+    .overlay{position:absolute;inset:0;background:rgba(17,24,39,.45)}
+    .panel{position:absolute;right:0;top:0;height:100%;width:min(420px,95vw);background:#fff;padding:16px;display:flex;flex-direction:column}
+    .cart-items{flex:1;overflow:auto;display:flex;flex-direction:column;gap:10px}
+    .item{border:1px solid var(--line);border-radius:10px;padding:10px;display:grid;grid-template-columns:1fr auto;gap:8px}
+    .qty{display:flex;align-items:center;gap:8px}.qty button{width:28px;height:28px}
+    .totals{border-top:1px solid var(--line);padding-top:12px}
+    .row{display:flex;justify-content:space-between;margin:5px 0}
+  </style>
 </head>
 <body>
-    <!-- Navigation Bar() -->    <!-- Contenido del navbar -->
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">Nelly's <span>Flawless</span></div>
+      <form class="search" id="searchForm"><input id="searchInput" placeholder="Busca tu fragancia..."/><button>🔍</button></form>
+      <button class="cart-btn" id="openCart">🛒 Carrito <span class="badge" id="cartCount">0</span></button>
+    </header>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <button class="hamburger" id="hamburger">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="logo">
-                <img src="imag/logo1.PNG" alt="Banorapp Logo">
-            </div>
-
-        </div>
-        <ul class="nav-menu" id="nav-menu">
-            <li><a href="#" class="nav-link active" data-section="dashboard">Inicio</a></li>
-            <li><a href="#" class="nav-link" data-section="sales-history">Historial de Ventas</a></li>
-            <li><a href="#" class="nav-link" data-section="debt-history">Historial de Deudas</a></li>
-        </ul>
-    </nav>
-
-    <!-- Dashboard Section -->     <!-- Estadísticas, formulario y tabla -->
-    <section id="dashboard" class="section active">
-        <div class="stats-container">
-            <div class="stat-box">
-                <h3>VENTAS HOY</h3>
-                <p id="today-sales">$0.00</p>
-            </div>
-            <div class="stat-box">
-                <h3>DEBE TOTAL</h3>
-                <p id="total-debt">$0.00</p>
-            </div>
-        </div>
-
-        <div class="date-display">
-            <p id="current-date">11/06/25</p>
-        </div>
-
-        <!-- Customer Registration Form -->
-        <div class="form-container">
-            <h2>Registro de Clientes</h2>
-            <form id="customer-form">
-                <div class="form-group">
-                    <label for="customer-name">Nombre del cliente:</label>
-                    <input type="text" id="customer-name" placeholder="Nombre del cliente" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Productos:</label>
-                    <div class="product-control">
-                        <span>Bebidas:</span>
-                        <div class="quantity-control">
-                            <button type="button" class="quantity-btn" data-product="drinks" data-action="decrease">-</button>
-                            <span id="drinks-quantity" class="quantity">0</span>
-                            <button type="button" class="quantity-btn" data-product="drinks" data-action="increase">+</button>
-                        </div>
-                    </div>
-                    <div class="product-control">
-                        <span>Galletas:</span>
-                        <div class="quantity-control">
-                            <button type="button" class="quantity-btn" data-product="cookies" data-action="decrease">-</button>
-                            <span id="cookies-quantity" class="quantity">0</span>
-                            <button type="button" class="quantity-btn" data-product="cookies" data-action="increase">+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Tipo de galleta:</label>
-                    <div class="radio-group">
-                        <label>
-                            <input type="radio" name="cookie-type" value="Con Canela" checked>
-                            <span>Con Canela</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="cookie-type" value="Sin Canela">
-                            <span>Sin Canela</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Estado de pago:</label>
-                    <div class="toggle-group">
-                        <button type="button" class="toggle-btn active" data-status="paid">Pagado</button>
-                        <button type="button" class="toggle-btn" data-status="unpaid">Debe</button>
-                    </div>
-                </div>
-
-                <button type="submit" class="submit-btn">Registrar cliente</button>
-            </form>
-        </div>
-
-        <!-- Registered Customers Table (now part of Dashboard) -->
-        <div class="table-container">
-            <h2>Clientes Registrados</h2>
-            <div class="table-scroll">
-                <table id="customers-table">
-                    <thead>
-                        <tr>
-                            <th>NOMBRE</th>
-                            <th>BEBIDAS</th>
-                            <th>GALLETAS</th>
-                            <th>TIPO</th>
-                            <th>TOTAL</th>
-                            <th>ESTADO</th>
-                            <th>ACCIONES</th>
-                        </tr>
-                    </thead>
-                    <tbody id="customers-table-body">
-                        <!-- Data will be inserted here by JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
+    <section class="hero">
+      <h1>Esencia única</h1>
+      <p class="muted">Catálogo dinámico + carrito persistente con cálculo de impuestos en un solo archivo.</p>
     </section>
 
-    <!-- Sales History Section -->
-    <section id="sales-history" class="section">
-        <!-- Content will be generated dynamically by JavaScript -->
+    <section class="catalog">
+      <h2>Fragancias destacadas</h2>
+      <div class="filters" id="categoryFilters"></div>
+      <div class="grid" id="productGrid"></div>
     </section>
+  </div>
 
-    <!-- Debt History Section -->
-    <section id="debt-history" class="section">
-        <!-- Content will be generated dynamically by JavaScript -->
-    </section>
-    
-  <!-- Footer -->
-    <footer class="footer">
-        <!-- contenido del footer -->
-         <div class="footer-container">
-        <div class="footer-content">
-            <div class="footer-section">
-                <div class="footer-logo">
-                    <img src="imag/logo1.PNG" alt="Banorapp Logo" class="footer-logo-img">
-                </div>
-                <p>Sistema de gestión de ventas y control de deudas para tu negocio.</p>
-               
-            </div>
-            
-            <div class="footer-section">
-                <h3>Funciones</h3>
-                <ul class="footer-links">
-                    <li><a href="#dashboard">Historial de Ventas</a></li>
-                    <li><a href="#debt-history">Historialde Deudas</a></li>
-                    <li><a href="#">Reportes</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Contacto</h3>
-                <div class="contact-info">
-                    <p><i class="fas fa-envelope"></i> info@banorapp.com</p>
-                    <p><i class="fas fa-phone"></i> +52 55 1234 5678</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Ciudad de México, México</p>
-                </div>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Síguenos</h3>
-                <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <div class="footer-divider"></div>
-            <div class="footer-bottom-content">
-                <p>&copy; 2025 Banorapp. Todos los derechos reservados.</p>
-                <div class="footer-bottom-links">
-                    <a href="#">Términos de Uso</a>
-                    <span>|</span>
-                    <a href="#">Política de Privacidad</a>
-                    <span>|</span>
-                    <a href="#">Soporte</a>
-                </div>
-            </div>
-        </div>
+  <aside class="drawer" id="cartDrawer" aria-hidden="true">
+    <div class="overlay" id="closeCart"></div>
+    <div class="panel">
+      <h3>Tu carrito</h3>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="totals">
+        <div class="row"><span>Subtotal</span><strong id="subtotal">$0.00</strong></div>
+        <div class="row"><span>Impuestos (16%)</span><strong id="tax">$0.00</strong></div>
+        <div class="row"><span>Total</span><strong id="total">$0.00</strong></div>
+      </div>
     </div>
-    </footer>
-    <script src="js/script.js"></script>
-    
-</body>
+  </aside>
 
+  <script>
+    const TAX_RATE = 0.16;
+    const products = [
+      {id:1,name:'Dior Joy EDP 100ml',price:1935,category:'Para ella',img:'https://images.unsplash.com/photo-1595425964078-6f0cf9f2e7b1?auto=format&fit=crop&w=600&q=60'},
+      {id:2,name:'Tom Ford Oud Wood EDP 100ml',price:4350,category:'Para él',img:'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=600&q=60'},
+      {id:3,name:'Armaf Club De Nuit Intense',price:1750,category:'Para él',img:'https://images.unsplash.com/photo-1615634262417-6c5f9f6f3ca6?auto=format&fit=crop&w=600&q=60'},
+      {id:4,name:'Le Male Elixir 125ml',price:2264.73,category:'Sin género',img:'https://images.unsplash.com/photo-1588405748880-12d1d2a59d75?auto=format&fit=crop&w=600&q=60'},
+      {id:5,name:'Raheeb Eau de Parfum',price:1599,category:'Para ella',img:'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=60'},
+    ];
+
+    const state = {search:'',category:'Todas',cart:JSON.parse(localStorage.getItem('nf_cart')||'{}')};
+    const money = n => n.toLocaleString('es-MX',{style:'currency',currency:'MXN'});
+
+    const els = {
+      productGrid: document.getElementById('productGrid'),
+      categoryFilters: document.getElementById('categoryFilters'),
+      cartCount: document.getElementById('cartCount'),
+      cartItems: document.getElementById('cartItems'), subtotal: document.getElementById('subtotal'), tax: document.getElementById('tax'), total: document.getElementById('total'),
+      cartDrawer: document.getElementById('cartDrawer')
+    };
+
+    function saveCart(){ localStorage.setItem('nf_cart', JSON.stringify(state.cart)); }
+    function setQty(id, qty){ if(qty<=0) delete state.cart[id]; else state.cart[id]=qty; saveCart(); renderCart(); }
+    function addToCart(id){ setQty(id,(state.cart[id]||0)+1); }
+
+    function renderFilters(){
+      const cats=['Todas',...new Set(products.map(p=>p.category))];
+      els.categoryFilters.innerHTML=cats.map(c=>`<button class="chip ${state.category===c?'active':''}" data-cat="${c}">${c}</button>`).join('');
+      [...els.categoryFilters.children].forEach(b=>b.onclick=()=>{state.category=b.dataset.cat; renderProducts(); renderFilters();});
+    }
+
+    function renderProducts(){
+      const q=state.search.toLowerCase();
+      const filtered=products.filter(p=>(state.category==='Todas'||p.category===state.category)&&p.name.toLowerCase().includes(q));
+      els.productGrid.innerHTML=filtered.map(p=>`<article class="card"><img src="${p.img}" alt="${p.name}"/><h4>${p.name}</h4><p class="price">${money(p.price)}</p><p class="ship">🚚 Envío gratis</p><button class="btn" data-add="${p.id}">Agregar al carrito</button></article>`).join('') || '<p>No hay productos para ese filtro.</p>';
+      els.productGrid.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>addToCart(Number(b.dataset.add)));
+    }
+
+    function renderCart(){
+      const items=Object.entries(state.cart).map(([id,qty])=>({p:products.find(x=>x.id===Number(id)),qty})).filter(x=>x.p);
+      const count=items.reduce((a,b)=>a+Number(b.qty),0); els.cartCount.textContent=count;
+      if(!items.length){ els.cartItems.innerHTML='<p class="muted">Tu carrito está vacío.</p>'; }
+      else{
+        els.cartItems.innerHTML=items.map(({p,qty})=>`<div class="item"><div><strong>${p.name}</strong><div class="muted">${money(p.price)} c/u</div></div><div><div class="qty"><button data-dec="${p.id}">-</button><span>${qty}</span><button data-inc="${p.id}">+</button></div><div style="text-align:right;margin-top:6px"><button data-del="${p.id}">🗑️</button></div></div></div>`).join('');
+        els.cartItems.querySelectorAll('[data-inc]').forEach(b=>b.onclick=()=>setQty(Number(b.dataset.inc),(state.cart[b.dataset.inc]||0)+1));
+        els.cartItems.querySelectorAll('[data-dec]').forEach(b=>b.onclick=()=>setQty(Number(b.dataset.dec),(state.cart[b.dataset.dec]||0)-1));
+        els.cartItems.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>setQty(Number(b.dataset.del),0));
+      }
+      const subtotal=items.reduce((acc,{p,qty})=>acc+p.price*qty,0); const tax=subtotal*TAX_RATE; const total=subtotal+tax;
+      els.subtotal.textContent=money(subtotal); els.tax.textContent=money(tax); els.total.textContent=money(total);
+    }
+
+    document.getElementById('openCart').onclick=()=>els.cartDrawer.classList.add('open');
+    document.getElementById('closeCart').onclick=()=>els.cartDrawer.classList.remove('open');
+    document.getElementById('searchForm').onsubmit=e=>{e.preventDefault(); state.search=document.getElementById('searchInput').value.trim(); renderProducts();};
+
+    renderFilters(); renderProducts(); renderCart();
+  </script>
+</body>
 </html>
